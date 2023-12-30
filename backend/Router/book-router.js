@@ -28,14 +28,9 @@ router.route('/books/:id').get(
     async (req, res) => {
         try {
             const { id } = req.params;
-            if (!mongoose.Types.ObjectId.isValid(id)) {
-                return res.status(400).send({ message: 'Invalid ObjectId format' });
-            }
 
             const book = await Book.findById(id);
-            return res.status(200).send({
-                data: book
-            })
+            return res.status(200).send(book)
 
         } catch (error) {
             console.log(error.message);
