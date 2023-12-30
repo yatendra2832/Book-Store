@@ -91,6 +91,22 @@ router.route('/books/:id').put(
     }
 )
 
+// Route for deleting the books
+router.route('/books/:id').delete(
+    async (req, res) => {
+        try {
+            const { id } = req.params;
 
+            const deletedbook = await Book.findByIdAndDelete(req.params.id);
+            if (!deletedbook) {
+                return res.status(404).send({ message: "Book not found" });
+            }
+            return res.status(200).send({ message: "Book deleted Successfully" });
+        } catch (error) {
+            console.log(error.message);
+            return res.status(500).send(error.message);
+        }
+    }
+)
 
 module.exports = router;
