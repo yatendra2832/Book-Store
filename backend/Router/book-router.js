@@ -65,4 +65,32 @@ router.route('/books').post(
     }
 )
 
+// Route for updating the book
+router.route('/books/:id').put(
+    async (req, res) => {
+        try {
+            if (
+                !req.body.title ||
+                !req.body.author ||
+                !req.body.publishYear
+            ) {
+                return res.status(400).send({ message: 'All fields are required' });
+            }
+            const { id } = req.params;
+            const book = await Book.findByIdAndUpdate(id, req.body, { new: true });
+            if (!book) {
+                return res.status(404).send({ message: 'Book not found' });
+            }
+
+            return res.status(200).send({ message: "Book Updated Successfully" });
+
+        } catch (error) {
+            console.log(error.message);
+            return res.status(500).send({ message: err.message });
+        }
+    }
+)
+
+
+
 module.exports = router;
