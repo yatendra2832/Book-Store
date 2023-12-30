@@ -28,6 +28,10 @@ router.route('/books/:id').get(
     async (req, res) => {
         try {
             const { id } = req.params;
+            if (!mongoose.Types.ObjectId.isValid(id)) {
+                return res.status(400).send({ message: 'Invalid ObjectId format' });
+            }
+
             const book = await Book.findById(id);
             return res.status(200).send({
                 data: book
@@ -77,6 +81,10 @@ router.route('/books/:id').put(
                 return res.status(400).send({ message: 'All fields are required' });
             }
             const { id } = req.params;
+            if (!mongoose.Types.ObjectId.isValid(id)) {
+                return res.status(400).send({ message: 'Invalid ObjectId format' });
+            }
+
             const book = await Book.findByIdAndUpdate(id, req.body, { new: true });
             if (!book) {
                 return res.status(404).send({ message: 'Book not found' });
@@ -96,8 +104,11 @@ router.route('/books/:id').delete(
     async (req, res) => {
         try {
             const { id } = req.params;
+            if (!mongoose.Types.ObjectId.isValid(id)) {
+                return res.status(400).send({ message: 'Invalid ObjectId format' });
+            }
 
-            const deletedbook = await Book.findByIdAndDelete(req.params.id);
+            const deletedbook = await Book.findByIdAndDelete(id);
             if (!deletedbook) {
                 return res.status(404).send({ message: "Book not found" });
             }
