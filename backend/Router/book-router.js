@@ -7,6 +7,38 @@ router.route('/')
         res.send('<h1>Welcome to Book Store</h1>');
     })
 
+//Route for getting all the books 
+router.route('/books').get(
+    async (req, res) => {
+        try {
+            const books = await Book.find();
+            return res.status(200).send({
+                count: books.length,
+                data: books
+            })
+
+        } catch (error) {
+            console.log(error.message);
+            res.status(500).send({ message: error.message });
+        }
+    }
+)
+// Route for getting the books with id
+router.route('/books/:id').get(
+    async (req, res) => {
+        try {
+            const { id } = req.params;
+            const book = await Book.findById(id);
+            return res.status(200).send({
+                data: book
+            })
+
+        } catch (error) {
+            console.log(error.message);
+            res.status(500).send({ message: error.message });
+        }
+    }
+)
 // Route For save a new book
 router.route('/books').post(
     async (req, res) => {
