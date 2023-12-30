@@ -1,14 +1,18 @@
-import express from 'express';
-import { PORT, mongoDBURL } from './config.js'
-import mongoose from 'mongoose';
+const express = require('express');
+const { PORT, mongoDBURL } =require('./config.js');
+const mongoose = require('mongoose');
+
 
 const app = express();
 
-app.get('/', (req, res) => {
-    return res.status(200).send('<h1>Hello World!</h1>');
-})
+// routes 
+const bookRoute = require('./Router/book-router');
 
+// Middlewares
+app.use(express.json()); // Middleware for parsing request body
+app.use('/api', bookRoute); // Middleware for routes
 
+// Database connection
 mongoose
     .connect(mongoDBURL)
     .then(() => {
