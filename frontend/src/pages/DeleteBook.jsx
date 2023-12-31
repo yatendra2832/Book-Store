@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Spinner from "../components/Spinner";
 import BackButton from "../components/BackButton";
-
+import { toast } from "react-toastify";
 const DeleteBook = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -14,11 +14,13 @@ const DeleteBook = () => {
       .delete(`http://localhost:5000/api/books/${id}`)
       .then(() => {
         setLoading(false);
+        toast.success("Book deleted successfully");
         navigate("/");
       })
       .catch((error) => {
         console.log(error.message);
         setLoading(false);
+        toast.error(error.message);
       });
   };
   return (

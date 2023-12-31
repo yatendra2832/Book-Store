@@ -3,7 +3,7 @@ import BackButton from "../components/BackButton";
 import axios from "axios";
 import Spinner from "../components/Spinner";
 import { useNavigate } from "react-router-dom";
-
+import { toast } from "react-toastify";
 const CreateBook = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
@@ -21,12 +21,13 @@ const CreateBook = () => {
       .post("http://localhost:5000/api/books", data)
       .then(() => {
         setLoading(false);
+        toast.success("Book created successfully");
         navigate("/");
       })
       .catch((error) => {
         console.log(error.message);
         setLoading(false);
-        // alert(error.message);
+        toast.error(error.message);
       });
   };
   return (

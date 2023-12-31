@@ -3,6 +3,7 @@ import BackButton from "../components/BackButton";
 import axios from "axios";
 import Spinner from "../components/Spinner";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 const EditBook = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
@@ -38,12 +39,13 @@ const EditBook = () => {
       .put(`http://localhost:5000/api/books/${id}`, data)
       .then(() => {
         setLoading(false);
+        toast.success("Book updated successfully");
         navigate("/");
       })
       .catch((error) => {
         console.log(error.message);
         setLoading(false);
-        // alert(error.message);
+        toast.error(error.message);
       });
   };
   return (
