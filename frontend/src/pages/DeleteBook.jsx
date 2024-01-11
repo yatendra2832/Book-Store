@@ -13,7 +13,7 @@ const DeleteBook = () => {
   const handleDeleteBook = () => {
     setLoading(true);
     axios
-      .delete(`http://localhost:5000/api/books/${id}`)
+      .delete(`book-store-backend-1u1drkpmo-yatendra-singhs-projects.vercel.app/api/books/${id}`)
       .then(() => {
         setLoading(false);
         toast.success("Book deleted successfully");

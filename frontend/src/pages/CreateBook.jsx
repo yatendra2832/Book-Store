@@ -20,7 +20,10 @@ const CreateBook = () => {
     };
     setLoading(true);
     axios
-      .post("http://localhost:5000/api/books", data)
+      .post(
+        "book-store-backend-1u1drkpmo-yatendra-singhs-projects.vercel.app/api/books",
+        data
+      )
       .then(() => {
         setLoading(false);
         toast.success("Book created successfully");

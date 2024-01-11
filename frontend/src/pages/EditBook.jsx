@@ -37,7 +37,7 @@ const EditBook = () => {
     };
     setLoading(true);
     axios
-      .put(`http://localhost:5000/api/books/${id}`, data)
+      .put(`book-store-backend-1u1drkpmo-yatendra-singhs-projects.vercel.app/api/books/${id}`, data)
       .then(() => {
         setLoading(false);
         toast.success("Book updated successfully");
