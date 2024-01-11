@@ -9,7 +9,7 @@ const app = express();
 
 app.use(
     cors({
-        origin: "http://localhost:5173",
+        origin: "https://book-store-frontend-five.vercel.app/",
         methods: ["GET", "POST", "PUT", "DELETE"],
         allowedHeaders: ["Content-Type"]
     })
@@ -23,9 +23,10 @@ app.use(express.json()); // Middleware for parsing request body
 app.use('/api', bookRoute); // Middleware for routes
 
 const PORT = process.env.PORT || 5500;
+const URI = process.env.MONGODB_URL;
 // Database connection
 mongoose
-    .connect(process.env.MONGODB_URL)
+    .connect(URI)
     .then(() => {
         console.log('connected to database successfully');
         app.listen(PORT, () => {
