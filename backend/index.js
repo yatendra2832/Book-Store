@@ -1,5 +1,5 @@
+require('dotenv').config();
 const express = require('express');
-const { PORT, mongoDBURL } = require('./config.js');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
@@ -22,10 +22,10 @@ const bookRoute = require('./Router/book-router');
 app.use(express.json()); // Middleware for parsing request body
 app.use('/api', bookRoute); // Middleware for routes
 
-
+const PORT = process.env.PORT || 5500;
 // Database connection
 mongoose
-    .connect(mongoDBURL)
+    .connect(process.env.MONGODB_URL)
     .then(() => {
         console.log('connected to database successfully');
         app.listen(PORT, () => {
